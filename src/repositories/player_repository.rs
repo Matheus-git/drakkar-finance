@@ -32,30 +32,6 @@ pub fn create_tables() -> Result<()> {
         [], 
     )?;
 
-    conn.execute(
-        "CREATE TABLE IF NOT EXISTS transactions (
-            id INTEGER PRIMARY KEY,
-            player_id INTEGER NOT NULL,
-            type TEXT NOT NULL CHECK(type IN ('purchase', 'sale', 'renewal')),
-            value REAL NOT NULL,
-            date DATE NOT NULL,
-            FOREIGN KEY (player_id) REFERENCES players(id)
-        )",
-        [], 
-    )?;
-
-    conn.execute(
-        "CREATE TABLE IF NOT EXISTS alerts (
-            id INTEGER PRIMARY KEY,
-            player_id INTEGER NOT NULL,
-            message TEXT NOT NULL,
-            alert_date DATE NOT NULL,
-            FOREIGN KEY (player_id) REFERENCES players(id)
-        )",
-        [], 
-    )?;
-
-    println!("Tables created successfully!");
     Ok(())
 }
 
