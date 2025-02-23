@@ -1,5 +1,5 @@
 use chrono::{DateTime, FixedOffset};
-use crate::repositories::player_repository::insert_player;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct Player {
@@ -10,10 +10,22 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(name: String, birthdate: DateTime<FixedOffset>, nationality: String) ->  Result<Player, rusqlite::Error> {
+    pub fn new(id: u32, name: String, birthdate: DateTime<FixedOffset>, nationality: String) -> Self {
+        Player {
+            id, 
+            name, 
+            birthdate,
+            nationality
+        }
+    }
+}
 
-        let player: Player = insert_player(name, birthdate, nationality)?;
-        
-        Ok(player)
+impl fmt::Display for Player {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "Player {{ id: {}, name: {}, birthdate: {}, nationality: {} }}",
+            self.id, self.name, self.birthdate, self.nationality
+        )
     }
 }

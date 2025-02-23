@@ -1,2 +1,2 @@
 pub mod player_repository;
-mod sqlite;
+pub mod sqlite;
